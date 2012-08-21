@@ -21,12 +21,14 @@ designed to be configurable, versatile, efficient and scalable.
 
 
 %build
-make %{?_smp_mflags}
+make EXTRAVERSION=-$RPM_PACKAGE_RELEASE
 
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
+make install PREFIX=/usr DESTDIR=$RPM_BUILD_ROOT
+install -d -m 0755 $RPM_BUILD_ROOT/usr/share/man/man8
+install -m 0755 apache-vsl.8 $RPM_BUILD_ROOT/usr/share/man/man8
 
 
 %clean
@@ -36,8 +38,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-/usr/local/bin/apache-vsl
-/usr/local/share/man/man8/apache-vsl.8
+/usr/bin/apache-vsl
+/usr/share/man/man8/apache-vsl.8.gz
 %doc README
 %doc COPYING
 
