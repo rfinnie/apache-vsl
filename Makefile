@@ -2,13 +2,17 @@ PREFIX := /usr/local
 
 all: apache-vsl
 
+apache-vsl: src/apache-vsl.pl
+	cp $< $@
+	chmod 0755 $@
+
 # Docs are shipped pre-compiled
 doc: apache-vsl.8 apache-vsl.8.html
 
-apache-vsl.8: apache-vsl
+apache-vsl.8: src/apache-vsl.pl
 	pod2man -c '' -r '' -s 8 $< >$@
 
-apache-vsl.8.html: apache-vsl
+apache-vsl.8.html: src/apache-vsl.pl
 	pod2html $< >$@
 	rm -f pod2htmd.tmp pod2htmi.tmp
 
@@ -32,6 +36,7 @@ install: all
 distclean: clean
 
 clean:
+	rm -f apache-vsl
 
 doc-clean:
 	rm -f apache-vsl.8 apache-vsl.8.html
