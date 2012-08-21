@@ -334,6 +334,9 @@ sub analyze_symlink {
   } elsif($cfg_symlink && (-e $cfg_symlink)) {
     # Symlink exists, but not as a symlink.  Recreate.
     return(1, undef);
+  } elsif($cfg_symlink) {
+    # Symlink doesn't exist, but should.  Create
+    return(1, undef);
   }
 
   return(0, undef);
