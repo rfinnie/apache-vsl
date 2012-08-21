@@ -34,7 +34,7 @@ use File::Spec;
 use Cwd qw/abs_path/;
 use Getopt::Std;
 
-my $versionstring = sprintf('twuewand %s%s',
+my $versionstring = sprintf('%s%s',
   $VERSION,
   ($EXTRAVERSION eq ('#'.'EXTRAVERSION'.'#') ? '' : $EXTRAVERSION)
 );
