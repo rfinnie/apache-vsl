@@ -1,0 +1,29 @@
+apache-vsl - VirtualHost-splitting log daemon for Apache
+By Ryan Finnie <ryan@finnie.org>
+http://www.finnie.org/software/apache-vsl/
+
+ABOUT
+
+apache-vsl is a logging program, intended to be run from Apache.  It is 
+designed to be configurable, versatile, efficient and scalable.
+
+INSTALLATION
+
+apache-vsl requires Perl 5.6.0 or newer.  apache-vsl requires several 
+Perl modules, most of which are in a standard Perl installation (though 
+your distribution may split Perl into "base" and "standard" packages).  
+Additionally, apache-vsl requires the Config::General module, which may 
+be installed from CPAN or your distribution.
+
+To "build" and install apache-vsl:
+
+  make
+  make test
+  make install
+  make clean
+
+/usr/local is the default Makefile prefix, use PREFIX to override.
+
+USAGE
+
+Please see the man page for full details.

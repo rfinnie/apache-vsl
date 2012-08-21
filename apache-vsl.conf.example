@@ -1,0 +1,23 @@
+# Suitable default log group, matches all non-explicit groups.
+<LogGroup _default_>
+  Timeout      300
+  LogFile      "/var/log/apache/%{vsl:groupname}/access_log.%Y-%m"
+  SymbolicLink "/var/log/apache/%{vsl:groupname}/access_log"
+  PreviousLink "/var/log/apache/%{vsl:groupname}/access_log.prev"
+  LogChange    "/usr/local/bin/vsl-logchange.sh"
+</LogGroup>
+
+# Daily log rollover, different format.
+<LogGroup www.example.com>
+  LogFile      "/var/log/apache/%{vsl:groupname}.log.%Y-%m-%d"
+  SymbolicLink "/var/log/apache/%{vsl:groupname}.log"
+</LogGroup>
+
+# 30 minute timeout, multiple LogChange events.
+<LogGroup example-cluster>
+  Timeout      1800
+  LogFile      "/var/log/apache/cluster.example.com/access_log.%Y-%m"
+  SymbolicLink "/var/log/apache/cluster.example.com/access_log"
+  LogChange    "/usr/local/bin/vsl-example-cluster-1"
+  LogChange    "/usr/local/bin/vsl-example-cluster-2"
+</LogGroup>
