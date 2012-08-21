@@ -3,7 +3,7 @@ PREFIX := /usr/local
 all: apache-vsl
 
 apache-vsl: src/apache-vsl.pl
-	cp $< $@
+	perl -pe 's%#EXTRAVERSION#%$(EXTRAVERSION)%g' $< >$@
 	chmod 0755 $@
 
 # Docs are shipped pre-compiled

@@ -20,7 +20,8 @@
 # 02110-1301, USA.
 ########################################################################
 
-my $VERSION = '3.0';
+my $VERSION = '3.0+dev';
+my $EXTRAVERSION = '#EXTRAVERSION#';
 
 use warnings;
 use strict;
@@ -33,6 +34,11 @@ use File::Spec;
 use Cwd qw/abs_path/;
 use Getopt::Std;
 
+my $versionstring = sprintf('twuewand %s%s',
+  $VERSION,
+  ($EXTRAVERSION eq ('#'.'EXTRAVERSION'.'#') ? '' : $EXTRAVERSION)
+);
+
 my $opt_cfgfile = "/etc/apache-vsl.conf";
 my $opt_debug = 0;
 my $opt_quiet = 0;
@@ -41,7 +47,7 @@ my %opts;
 getopts('c:hdq', \%opts);
 
 if($opts{'h'}) {
-  print STDERR "apache-vsl - VirtualHost-splitting log daemon for Apache, version $VERSION\n";
+  print STDERR "apache-vsl - VirtualHost-splitting log daemon for Apache, version $versionstring\n";
   print STDERR "Copyright (C) 2012 Ryan Finnie <ryan\@finnie.org>\n";
   print STDERR "\n";
   pod2usage(2);
@@ -64,7 +70,7 @@ load_config();
 $SIG{USR1} = \&process_SIGUSR1;
 $SIG{TERM} = \&process_SIGTERM;
 
-notice("apache-vsl - VirtualHost-splitting log daemon for Apache, version $VERSION -- configured");
+notice("apache-vsl - VirtualHost-splitting log daemon for Apache, version $versionstring -- configured");
 
 # Loop through STDIN.  Duh.
 my(%curlogfile, %handle, %lastaccess);
