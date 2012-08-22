@@ -40,11 +40,12 @@ my $versionstring = sprintf('%s%s',
 );
 
 my $opt_cfgfile = "/etc/apache-vsl.conf";
+my $opt_loggroup;
 my $opt_debug = 0;
 my $opt_quiet = 0;
 
 my %opts;
-getopts('c:hdq', \%opts);
+getopts('c:g:hdq', \%opts);
 
 if($opts{'h'}) {
   print STDERR "apache-vsl - VirtualHost-splitting log daemon for Apache, version $versionstring\n";
@@ -62,6 +63,9 @@ if($opts{'d'}) {
 }
 if($opts{'d'}) {
   $opt_quiet = $opts{'q'};
+}
+if($opts{'g'}) {
+  $opt_loggroup = $opts{'g'};
 }
 
 my(%cfg);
@@ -81,7 +85,13 @@ while(my $l = <STDIN>) {
 
   # Split input into supplied group name and the rest.  No processing is done
   # on the rest.
-  my($groupname, $rest) = split(/ /, $l, 2);
+  my($groupname, $rest);
+  if($opt_loggroup) {
+    $groupname = $opt_loggroup;
+    $rest = $l;
+  } else {
+    ($groupname, $rest) = split(/ /, $l, 2);
+  }
   next unless($groupname && $rest);
 
   # Parse the group's configuration
@@ -474,6 +484,12 @@ programs are run.
 Location of configuration file.  See B<CONFIGURATION FILE> for the 
 format of the file.  If not specified, the system default is 
 I</etc/apache-vsl.conf>.
+
+=item B<-g> I<groupname>
+
+Do not parse the first word of each input line for a log group.  
+Instead, use I<groupname> as the log group, and treat input lines as 
+verbatim.  Useful for individual VirtualHost ErrorLog pipes.
 
 =item B<-d>
 
