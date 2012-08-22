@@ -61,7 +61,7 @@ if($opts{'c'}) {
 if($opts{'d'}) {
   $opt_debug = $opts{'d'};
 }
-if($opts{'d'}) {
+if($opts{'q'}) {
   $opt_quiet = $opts{'q'};
 }
 if($opts{'g'}) {
