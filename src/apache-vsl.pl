@@ -32,40 +32,38 @@ use File::Path;
 use File::Basename;
 use File::Spec;
 use Cwd qw/abs_path/;
-use Getopt::Std;
+use Getopt::Long;
 
 my $versionstring = sprintf('%s%s',
   $VERSION,
   ($EXTRAVERSION eq ('#'.'EXTRAVERSION'.'#') ? '' : $EXTRAVERSION)
 );
 
-my $opt_cfgfile = "/etc/apache-vsl.conf";
-my $opt_loggroup;
-my $opt_debug = 0;
-my $opt_quiet = 0;
+my(
+  $opt_cfgfile,
+  $opt_loggroup,
+  $opt_debug,
+  $opt_quiet,
+  $opt_help,
+);
 
-my %opts;
-getopts('c:g:hdq', \%opts);
+$opt_cfgfile = "/etc/apache-vsl.conf";
 
-if($opts{'h'}) {
+Getopt::Long::Configure("bundling");
+my($result) = GetOptions(
+  'config|c=s' => \$opt_cfgfile,
+  'loggroup|g=s' => \$opt_loggroup,
+  'debug|d' => \$opt_debug,
+  'quiet|q' => \$opt_quiet,
+  'help|?' => \$opt_help,
+);
+
+if($opt_help) {
   print STDERR "apache-vsl - VirtualHost-splitting log daemon for Apache, version $versionstring\n";
   print STDERR "Copyright (C) 2012 Ryan Finnie <ryan\@finnie.org>\n";
   print STDERR "\n";
   pod2usage(2);
   #exit(1);
-}
-
-if($opts{'c'}) {
-  $opt_cfgfile = $opts{'c'};
-}
-if($opts{'d'}) {
-  $opt_debug = $opts{'d'};
-}
-if($opts{'q'}) {
-  $opt_quiet = $opts{'q'};
-}
-if($opts{'g'}) {
-  $opt_loggroup = $opts{'g'};
 }
 
 my(%cfg);
@@ -481,17 +479,23 @@ programs are run.
 
 =item B<-c> I<apache-vsl.conf>
 
+=item B<--config>=I<apache-vsl.conf>
+
 Location of configuration file.  See B<CONFIGURATION FILE> for the 
 format of the file.  If not specified, the system default is 
 I</etc/apache-vsl.conf>.
 
 =item B<-g> I<groupname>
 
+=item B<--loggroup>=I<groupname>
+
 Do not parse the first word of each input line for a log group.  
 Instead, use I<groupname> as the log group, and treat input lines as 
 verbatim.  Useful for individual VirtualHost ErrorLog pipes.
 
 =item B<-d>
+
+=item B<--debug>
 
 Debug mode.  Events such as opening or closing log files are logged to 
 STDERR.  Due to configurable timeouts, the overall debug log traffic is 
@@ -500,11 +504,15 @@ installation.
 
 =item B<-q>
 
+=item B<--quiet>
+
 Quiet mode.  Events such as startup notification and signals received, 
 normally logged to STDERR, will be surpressed.  Errors will still be 
 sent to STDERR during quiet mode.
 
-=item B<-h>
+=item B<-?>
+
+=item B<--help>
 
 Displays a help synopsis and exits.
 

@@ -18,7 +18,7 @@ apache-vsl.8.html: src/apache-vsl.pl
 
 test:
 	@perl -MConfig::General -e 'print "Config::General is installed.\n";'
-	@perl -MGetopt::Std -e 'print "Getopt::Std is installed.\n";'
+	@perl -MGetopt::Long -e 'print "Getopt::Long is installed.\n";'
 	@perl -MPod::Usage -e 'print "Pod::Usage is installed.\n";'
 	@perl -MPOSIX -e 'print "POSIX is installed.\n";'
 	@perl -MFile::Path -e 'print "File::Path is installed.\n";'
