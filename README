@@ -17,6 +17,7 @@ be installed from CPAN or your distribution.
 
 To "build" and install apache-vsl:
 
+  perl Makefile.PL
   make
   make test
   make install

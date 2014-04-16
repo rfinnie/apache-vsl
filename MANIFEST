@@ -1,0 +1,11 @@
+MANIFEST
+apache-vsl.conf.example
+apache-vsl.spec
+ChangeLog
+COPYING
+Makefile.PL
+META.yml
+META.json
+README
+script/apache-vsl.in
+script/build.PL
