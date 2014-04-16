@@ -1,5 +1,5 @@
 Name:           apache-vsl
-Version:        3.1.1
+Version:        3.2
 Release:        0%{?dist}
 Summary:        VirtualHost-splitting log daemon for Apache
 License:        GPLv2+

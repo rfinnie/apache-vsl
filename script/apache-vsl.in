@@ -2,7 +2,7 @@
 
 ########################################################################
 # apache-vsl - VirtualHost-splitting log daemon for Apache
-# Copyright (C) 2012 Ryan Finnie <ryan@finnie.org>
+# Copyright (C) 2014 Ryan Finnie <ryan@finnie.org>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -20,7 +20,7 @@
 # 02110-1301, USA.
 ########################################################################
 
-our $VERSION = '3.1.1' . ('#EXTRAVERSION#' eq ('#'.'EXTRAVERSION'.'#') ? '' : '#EXTRAVERSION#');
+our $VERSION = '3.2' . ('#EXTRAVERSION#' eq ('#'.'EXTRAVERSION'.'#') ? '' : '#EXTRAVERSION#');
 
 use warnings;
 use strict;
@@ -56,7 +56,7 @@ my($result) = GetOptions(
 
 if($opt_help) {
   print STDERR "apache-vsl - VirtualHost-splitting log daemon for Apache, version $versionstring\n";
-  print STDERR "Copyright (C) 2012 Ryan Finnie <ryan\@finnie.org>\n";
+  print STDERR "Copyright (C) 2014 Ryan Finnie <ryan\@finnie.org>\n";
   print STDERR "\n";
   pod2usage(2);
   #exit(1);
